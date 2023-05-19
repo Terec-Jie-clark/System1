@@ -36,7 +36,6 @@ $router->get('/', function () use ($router) {
 // $router->get('/studentsList',['uses' => 'UserController@getAllUsers']);
 $router->get('/authors', 'UserController@index'); //<-- get all users
 
-
 $router->get('/authors/{id}', 'UserController@showId'); // get user by id
 
 $router->post('/authors', 'UserController@add'); // create new user record
