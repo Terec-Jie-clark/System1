@@ -3,9 +3,10 @@
 //  <-- CONTROLLER - THE MIDDLE MAN
 
 namespace App\Http\Controllers;
+use App\Models\JobType;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request; // <-- handling http request in lumen
 use App\Models\User; // <-- The model
+use Illuminate\Http\Request; // <-- handling http request in lumen
 use App\Traits\ApiResponser; // <-- use to standardized our code for api response
 
 // use DB;  // <---if you're not using lumen eloquent you can use DB component in lumen
@@ -47,10 +48,14 @@ public function add(Request $request)
     $rules = [
     'firstname' => 'required|max:20',
     'lastname' => 'required|max:20',
+    'jobId' => 'required|numeric|min:1|not_in:0',
     ];
-    $this->validate($request, $rules);
-    $user = User::create($request->all());
 
+    $this->validate($request, $rules);
+    // validate if awardId is found in the table tblawards
+    $authorAward = JobType::findOrFail($request->jobId);
+    $user = User::create($request->all());
+    // $all = [$authorAward, $user];
     return $this->successResponse($user, Response::HTTP_CREATED);
     
     
@@ -63,8 +68,11 @@ public function update(Request $request, $id)
     $rules = [
       'firstname' => 'required|max:20',
       'lastname' => 'required|max:20',
+      'jobId' => 'required|numeric|min:1|not_in:0',
     ];
+
     $this->validate($request, $rules);
+    $authorAward = JobType::findOrFail($request->jobId);
     $user = User::findOrFail($id);
     $user->fill($request->all());
 

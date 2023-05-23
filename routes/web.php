@@ -43,3 +43,10 @@ $router->post('/authors', 'UserController@add'); // create new user record
 $router->put('/authors/{id}', 'UserController@update'); // update user record
 
 $router->delete('/authors/{id}', 'UserController@delete'); // delete record
+
+
+// Job routes
+
+$router->get('/job', 'JobController@index'); // show all genre
+
+$router->get('/job/{jobId}' , 'JobController@show'); // show genre by id

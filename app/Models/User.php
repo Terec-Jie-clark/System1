@@ -14,6 +14,6 @@ protected $table = 'author';
 
 // column sa table
 protected $fillable = [
-'firstname', 'lastname'
+'firstname', 'lastname', 'genreId', 'jobId'
 ];  
 }
