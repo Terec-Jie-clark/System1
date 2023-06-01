@@ -35,6 +35,13 @@ class Handler extends ExceptionHandler
    
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof ValidationException) {
+            $errors = $exception->validator->errors()->all();
+            if (in_array('The position name has already been taken.', $errors)) {
+                return $this->errorResponse('Data already exists', Response::HTTP_BAD_REQUEST);
+            }
+        }
+
         //  http not found  ✅ (USING GET)
         if ($exception instanceof HttpException){
             $code = $exception->getStatusCode();
@@ -67,6 +74,8 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AuthorizationException){
             return $this->errorResponse($exception->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
+
+    
 
         if (env('APP_DEBUG', false)){        
             return parent::render($request, $exception);

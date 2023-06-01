@@ -35,18 +35,15 @@ $router->get('/', function () use ($router) {
 //<-- get all users
 // $router->get('/studentsList',['uses' => 'UserController@getAllUsers']);
 $router->get('/authors', 'UserController@index'); //<-- get all users
-
 $router->get('/authors/{id}', 'UserController@showId'); // get user by id
-
 $router->post('/authors', 'UserController@add'); // create new user record
-
 $router->put('/authors/{id}', 'UserController@update'); // update user record
-
 $router->delete('/authors/{id}', 'UserController@delete'); // delete record
 
 
 // Job routes
 
 $router->get('/job', 'JobController@index'); // show all genre
-
 $router->get('/job/{jobId}' , 'JobController@show'); // show genre by id
+$router->post('/job' , 'JobController@addJob'); // add job type
+$router->delete('/job/{id}' , 'JobController@delete'); // delete job type

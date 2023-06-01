@@ -52,11 +52,22 @@ public function add(Request $request)
     ];
 
     $this->validate($request, $rules);
-    // validate if awardId is found in the table tblawards
-    $authorAward = JobType::findOrFail($request->jobId);
-    $user = User::create($request->all());
-    // $all = [$authorAward, $user];
-    return $this->successResponse($user, Response::HTTP_CREATED);
+    // validate if jobId is found in the table jobtype
+
+    $authorJob = JobType::findOrFail($request->jobId);
+
+    /*
+    --> use array to post 
+
+    $author = collect($request->all())->map(function ($item){
+        return User::create($item);
+    });
+
+    */
+    // post single data using body / params
+    $author = User::create($request->all());
+  
+    return $this->successResponse($author, Response::HTTP_CREATED);
     
     
     
@@ -75,7 +86,6 @@ public function update(Request $request, $id)
     $authorAward = JobType::findOrFail($request->jobId);
     $user = User::findOrFail($id);
     $user->fill($request->all());
-
     $user->save();
 
     return $user;
@@ -87,7 +97,6 @@ public function delete($id)
 {
     $user = User::findOrFail($id);
     $user->delete();
-
     return $this->successResponse($user);
 }
 
@@ -96,7 +105,6 @@ public function delete($id)
 public function index()
     {
         $users = User::all();
-
         return $this->successResponse($users);
     }
 }
