@@ -21,9 +21,11 @@ class JobTypeFactory extends Factory
      */
     public function definition()
     {
+      $baseSalary = $this->faker->randomDigitNotNull * 100; // Mo Generates og random digit dayun multiply to 100
+      $salary = $baseSalary * 1000; // add ang three zeros sa last
         return [
           'positionName' => $this->faker->jobTitle,
-          'salary' => $this->faker->numberBetween(50000, 150000),
+          'salary' => $salary,
         ];
     }
 }
