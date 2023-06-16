@@ -53,6 +53,7 @@ public function addJob(Request $request){
 // -> and store to database 
 public function addJob(Request $request)
 {
+    
     $rules = [
         '*.positionName' => ['required','max:150', Rule::unique('job_type', 'positionName ')],
         '*.salary' => 'required|numeric',

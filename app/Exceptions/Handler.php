@@ -56,6 +56,7 @@ class Handler extends ExceptionHandler
             return $this->errorResponse("Does not exist any instance of {$model} with the given id", Response::HTTP_NOT_FOUND);
 
         }
+        
 
         // validation exception ✅ (USING PUT)
 
